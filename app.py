@@ -6,7 +6,7 @@ import numpy as np
 client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct")
 
 def response(message,history):
-    messages=[{"role":"system","content":"You are a friendly chatbot."}]
+    messages=[{"role":"system","content":"You are a debugger."}]
 
     if history:
         messages.extend(history)

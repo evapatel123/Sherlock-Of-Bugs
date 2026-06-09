@@ -13,11 +13,11 @@ client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct")
 knowledge_base = [
     {
         "error_type": "IndexError: list index out of range",
-        "context": "Occurs when trying to access an index that doesn't exist in a list. Remember Python lists start at index 0. If a list has 3 items, valid indices are 0, 1, and 2."
+        "context": "Occurs when trying to access an index that doesn't exist in a list. Remember Python and many other programming languages lists start at index 0. If a list has 3 items, valid indices are 0, 1, and 2."
     },
     {
         "error_type": "TypeError: 'int' object is not iterable",
-        "context": "Occurs when trying to loop through or unpack an integer instead of a collection like a list or dictionary. Check if you passed a number to a for loop."
+        "context": "Occurs when trying to loop through or unpack an integer instead of a collection like a list or dictionary. Check if you passed a number to a for loop or any other type of loop."
     },
     {
         "error_type": "KeyError",
@@ -25,11 +25,11 @@ knowledge_base = [
     },
     {
         "error_type": "IndentationError: unexpected indent",
-        "context": "Python relies heavily on whitespace. Ensure you are consistently using either 4 spaces or 1 tab inside loops and functions."
+        "context": "Python and many other programming languages relies heavily on whitespace. Some languages like C++ and Javascript may rely on curly braces. Ensure you are consistently using either 4 spaces or 1 tab inside loops and functions."
     },
     {
         "error_type": "NameError: name is not defined",
-        "context": "Occurs when using a variable or function name that Python doesn't recognize. Common causes: a typo, or calling it before it is defined."
+        "context": "Occurs when using a variable or function name that Python or any other programming language doesn't recognize. Common causes: a typo, or calling it before it is defined."
     }
 ]
 

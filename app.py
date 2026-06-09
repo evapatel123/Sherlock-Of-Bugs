@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer
 import gradio as gr
 import numpy as np 
 
-client=InferenceClient("Qwen/Qwen2.5-7B-Instruct")
+client = InferenceClient(model="meta-llama/Meta-Llama-3-8B-Instruct", token="HF_TOKEN")
 
 def response(message,history):
     messages=[{"role":"system","content":"You are a friendly chatbot."}]

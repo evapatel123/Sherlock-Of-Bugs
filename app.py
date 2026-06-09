@@ -43,5 +43,5 @@ def response(message,history):
     
     return response.choices[0].message.content.strip() 
     
-chatbot= gr.ChatInterface(response,title="Sherlock Of Bugs",description="Paste your Python error and I will help you fix it.")
+chatbot= gr.ChatInterface(response,title="🕵️‍♂️ The Sherlock of Bugs",description="Your personal debugging partner from crime scene to clean code.")
 chatbot.launch()

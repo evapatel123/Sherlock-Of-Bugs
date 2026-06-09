@@ -36,13 +36,14 @@ knowledge_base = [
 def response(message,history):
     messages=[{"role":"system","content":"You are a debugger."}]
 
-    for user_msg, bot_msg in history:
-        messages.append({"role":"user","content":message})
-    messages.append({"role":"assistant","content": bot_msg})
+    if history:
+        for user_msg, bot_msg in history:
+            messages.append({"role": "user", "content": user_msg})
+            messages.append({"role": "assistant", "content": bot_msg})
 
     response=client.chat_completion(messages,max_tokens=1000)
     
     return response.choices[0].message.content.strip() 
     
-chatbot=gr.ChatInterface(response)
+chatbot= gr.ChatInterface(response)
 chatbot.launch()

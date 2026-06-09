@@ -36,9 +36,9 @@ knowledge_base = [
 def response(message,history):
     messages=[{"role":"system","content":"You are a debugger."}]
 
-    if history:
-        messages.extend(history)
-    messages.append({"role":"user","content":message})
+    for user_msg, bot_msg in history:
+        messages.append({"role":"user","content":message})
+    messages.append({"role":"assistant","content": bot_msg})
 
     response=client.chat_completion(messages,max_tokens=1000)
     

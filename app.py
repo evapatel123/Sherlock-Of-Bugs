@@ -43,5 +43,5 @@ def response(message,history):
     
     return response.choices[0].message.content.strip() 
     
-chatbot= gr.ChatInterface(fn=response, type="messages")
+chatbot= gr.ChatInterface(response)
 chatbot.launch()

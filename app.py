@@ -32,68 +32,68 @@ knowledge_base = [
         "context": "Occurs when using a variable or function name that Python or any other programming language doesn't recognize. Common causes: a typo, or calling it before it is defined."
     }
     {
-    "error_type": "TypeError: unsupported operand type(s)",
-    "context": "Occurs when performing an operation between incompatible data types, such as adding a string and an integer. Check the types of the variables involved."
+        "error_type": "TypeError: unsupported operand type(s)",
+        "context": "Occurs when performing an operation between incompatible data types, such as adding a string and an integer. Check the types of the variables involved."
     },
     {
-    "error_type": "ValueError",
-    "context": "Occurs when a function receives the correct type of argument but an invalid value. Example: converting 'hello' to an integer using int()."
+        "error_type": "ValueError",
+        "context": "Occurs when a function receives the correct type of argument but an invalid value. Example: converting 'hello' to an integer using int()."
     },
     {
-    "error_type": "AttributeError",
-    "context": "Occurs when trying to access a method or attribute that an object does not have. Check for typos or whether the object is the expected type."
+        "error_type": "AttributeError",
+        "context": "Occurs when trying to access a method or attribute that an object does not have. Check for typos or whether the object is the expected type."
     },
     {
-    "error_type": "ZeroDivisionError",
-    "context": "Occurs when attempting to divide a number by zero. Ensure the denominator is not zero before performing division."
+        "error_type": "ZeroDivisionError",
+        "context": "Occurs when attempting to divide a number by zero. Ensure the denominator is not zero before performing division."
     },
     {
-    "error_type": "SyntaxError",
-    "context": "Occurs when Python encounters invalid code structure. Common causes include missing colons, parentheses, quotes, or incorrect statement formatting."
+        "error_type": "SyntaxError",
+        "context": "Occurs when Python encounters invalid code structure. Common causes include missing colons, parentheses, quotes, or incorrect statement formatting."
     },
     {
-    "error_type": "ModuleNotFoundError",
-    "context": "Occurs when Python cannot find the module being imported. Verify the module is installed and the import statement is correct."
+        "error_type": "ModuleNotFoundError",
+        "context": "Occurs when Python cannot find the module being imported. Verify the module is installed and the import statement is correct."
     },
     {
-    "error_type": "ImportError",
-    "context": "Occurs when Python finds a module but cannot import a specific object from it. Check spelling and module contents."
+        "error_type": "ImportError",
+        "context": "Occurs when Python finds a module but cannot import a specific object from it. Check spelling and module contents."
     },
     {
-    "error_type": "FileNotFoundError",
-    "context": "Occurs when trying to open or access a file that does not exist at the specified path. Verify the filename and location."
+        "error_type": "FileNotFoundError",
+        "context": "Occurs when trying to open or access a file that does not exist at the specified path. Verify the filename and location."
     },
     {
-    "error_type": "PermissionError",
-    "context": "Occurs when the program does not have permission to access a file, folder, or system resource. Check file permissions and access rights."
+        "error_type": "PermissionError",
+        "context": "Occurs when the program does not have permission to access a file, folder, or system resource. Check file permissions and access rights."
     },
     {
-    "error_type": "UnboundLocalError",
-    "context": "Occurs when a local variable is referenced before it has been assigned a value within a function."
+        "error_type": "UnboundLocalError",
+        "context": "Occurs when a local variable is referenced before it has been assigned a value within a function."
     },
     {
-    "error_type": "RecursionError",
-    "context": "Occurs when a function calls itself too many times without reaching a stopping condition. Verify the base case of recursive functions."
+        "error_type": "RecursionError",
+        "context": "Occurs when a function calls itself too many times without reaching a stopping condition. Verify the base case of recursive functions."
     },
     {
-    "error_type": "MemoryError",
-    "context": "Occurs when the program runs out of available memory. This often happens with very large datasets or infinite data structures."
+        "error_type": "MemoryError",
+        "context": "Occurs when the program runs out of available memory. This often happens with very large datasets or infinite data structures."
     },
     {
-    "error_type": "AssertionError",
-    "context": "Occurs when an assert statement evaluates to False. Check whether the expected condition is actually true."
+        "error_type": "AssertionError",
+        "context": "Occurs when an assert statement evaluates to False. Check whether the expected condition is actually true."
     },
     {
-    "error_type": "RuntimeError",
-    "context": "A generic error indicating something unexpected happened during execution that doesn't fit a more specific exception type."
+        "error_type": "RuntimeError",
+        "context": "A generic error indicating something unexpected happened during execution that doesn't fit a more specific exception type."
     },
     {
-    "error_type": "KeyboardInterrupt",
-    "context": "Occurs when the user manually stops the program, usually by pressing Ctrl+C."
+        "error_type": "KeyboardInterrupt",
+        "context": "Occurs when the user manually stops the program, usually by pressing Ctrl+C."
     },
     {
-    "error_type": "EOFError",
-    "context": "Occurs when input() reaches the end of input unexpectedly. Common in online judges or automated testing environments."
+        "error_type": "EOFError",
+        "context": "Occurs when input() reaches the end of input unexpectedly. Common in online judges or automated testing environments."
     }
 ]
 

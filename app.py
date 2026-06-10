@@ -30,7 +30,7 @@ knowledge_base = [
     {
         "error_type": "NameError: name is not defined",
         "context": "Occurs when using a variable or function name that Python or any other programming language doesn't recognize. Common causes: a typo, or calling it before it is defined."
-    }
+    },
     {
         "error_type": "TypeError: unsupported operand type(s)",
         "context": "Occurs when performing an operation between incompatible data types, such as adding a string and an integer. Check the types of the variables involved."

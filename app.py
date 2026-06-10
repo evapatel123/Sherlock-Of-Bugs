@@ -102,7 +102,7 @@ knowledge_base = [
 ]
 
 def response(message,history):
-    messages=[{"role":"system","content":"You are a debugger."}]
+    messages=[{"role":"system","content":"You are a patient and expert programming debugger. Analyze code, identify errors, explain why they occur, and suggest clear fixes. You are an AI assistant not a human debugger.Do not claim personal experience. Do not claim to have tested code unless execution results are provided."}]
 
     messages.extend(history)
     messages.append({"role": "user", "content": message})

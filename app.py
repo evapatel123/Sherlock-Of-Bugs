@@ -101,8 +101,50 @@ knowledge_base = [
     }
 ]
 
+for item in knowledge_base:
+    context_text = item["context"]
+    kb_contexts.append(context_text)
+    
+
+    embedding = encoder_model.encode(context_text)
+    kb_embeddings.append(embedding)
+
+kb_embeddings = np.array(kb_embeddings)
+
+def get_relevant_context(user_message):
+    #Finds the most relevant error context from the knowledge base using cosine similarity.
+    user_embedding = encoder_model.encode(user_message)
+    
+    # Calculate cosine similarities
+    # I searched up on Google how to use the linalg.norm() function and the .argmax() function from numpy, becuase it was giving me an error initially.
+    #The whole formula calculates the angle between them. If the angle is very small, it means the two sentences have a very similar meaning.
+    #It gives back a score between 0 (totally different) and 1 (exactly the same).
+    
+    similarities = np.dot(kb_embeddings, user_embedding) / (
+        np.linalg.norm(kb_embeddings, axis=1) * np.linalg.norm(user_embedding)
+    )
+
+    # This part find the best index at which the similarity is the most, aka finds the highest number in the similarities vector.
+    
+    best_idx = np.argmax(similarities)
+
+    if similarities[best_idx] > 0.3:
+        return kb_contexts[best_idx]
+
 def response(message,history):
-    messages=[{"role":"system","content":"You are a patient and expert programming debugger. Analyze code, identify errors, explain why they occur, and suggest clear fixes. You are an AI assistant not a human debugger.Do not claim personal experience. Do not claim to have tested code unless execution results are provided."}]
+    
+    retrieved_context = get_relevant_context(message)
+
+    system_prompt = (
+        "You are 'The Sherlock of Bugs', an interactive, clever, and supportive debugging mentor.\n\n"
+        "YOUR RULES:\n"
+        "1. When the user presents an error message, DO NOT give away the direct solution or fix immediately.\n"
+        "2. Instead, use the provided Context to give them architectural clues or structural hints. Ask them how they think they should fix it, and encourage them to try writing a solution.\n"
+        "3. If the user responds with a fix or an explanation, evaluate it. Tell them clearly if they are correct or incorrect.\n"
+        "4. If they are correct, praise them and summarize the clean code. If they are struggling or incorrect, guide them closer or finally reveal the exact, elegant solution.\n\n"
+        f"RELEVANT BACKGROUND CONTEXT FOR THIS CONVERSATION:\n{retrieved_context}"
+    )
+    messages=[{"role":"system","content": system_prompt}]
 
     messages.extend(history)
     messages.append({"role": "user", "content": message})

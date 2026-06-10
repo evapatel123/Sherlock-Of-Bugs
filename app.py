@@ -94,6 +94,10 @@ knowledge_base = [
     {
         "error_type": "EOFError",
         "context": "Occurs when input() reaches the end of input unexpectedly. Common in online judges or automated testing environments."
+    },
+    {
+        "error_type": "Wrong Data Type",
+        "context": "The program runs but produces incorrect results because a variable contains a different type than expected."
     }
 ]
 

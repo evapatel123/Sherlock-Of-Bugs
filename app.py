@@ -100,6 +100,8 @@ knowledge_base = [
         "context": "The program runs but produces incorrect results because a variable contains a different type than expected."
     }
 ]
+kb_contexts = []
+kb_embeddings = []
 
 for item in knowledge_base:
     context_text = item["context"]

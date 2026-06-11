@@ -164,31 +164,25 @@ body, .gradio-container {
 }
 
 /* Glowing Header Board */
-.logo-header { 
-    text-align: center; 
-    border: 2px dashed #ff007f; 
-    background: rgba(255, 0, 127, 0.03); 
-    padding: 20px; 
-    border-radius: 8px; 
-    margin-bottom: 25px; 
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.15); 
+.logo-header {     
+    text-align: center;     
+    border: 2px dashed #ff007f;     
+    background: rgba(255, 0, 127, 0.03);     
+    padding: 10px; /* Reduced padding so the image fits snugly */
+    border-radius: 8px;     
+    margin-bottom: 25px;     
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.15);     
     animation: pulse-glow 4s infinite alternate; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.logo-header h1 { 
-    color: #ff007f !important; 
-    font-size: 2.5rem; 
-    letter-spacing: 4px; 
-    font-weight: 900; 
-    margin: 0; 
-    text-shadow: 0 0 15px #ff007f, 0 0 30px #7000ff; 
-}
-.logo-header p { 
-    color: #9d4edd; 
-    margin-top: 8px; 
-    font-size: 1rem; 
-    letter-spacing: 2px; 
-    text-transform: uppercase; 
-    text-shadow: 0 0 5px #9d4edd; 
+
+/* Ensures the image doesn't blow past its bounds and keeps its clean corners */
+.logo-header img {
+    max-height: 250px; /* Adjust this height if you want it larger or smaller on screen */
+    border-radius: 6px;
+    object-fit: contain;
 }
 
 /* Chatbot Window Customization */
@@ -254,11 +248,15 @@ footer { display: none !important; }
 """
 
 with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo:
-    # 1. Header
+# 1. Header
     with gr.Group(elem_classes=["logo-header"]):
-        gr.HTML("<h1>🕵️‍♂️ THE SHERLOCK OF BUGS</h1>")
-        gr.HTML("<p>Your personal debugging partner from a crime scene to clean code.</p>")
-
+        # Replace the old gr.HTML lines with this:
+        gr.Image(
+            value="TheSherLockOfBugs.jpeg", 
+            show_label=False, 
+            container=False, 
+            interactive=False
+        )
     # 2. Main Chat Interface
     chatbot_window = gr.ChatInterface(fn=response)
 

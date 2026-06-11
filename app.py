@@ -154,6 +154,111 @@ def response(message,history):
     response = client.chat_completion(messages,max_tokens=1000)
     
     return response.choices[0].message.content.strip() 
+
+
+custom_css = """
+body, .gradio-container { 
+    background-color: #0b001a !important; 
+    color: #ff77ff !important; 
+    font-family: 'Segoe UI', system-ui, sans-serif !important; 
+}
+.gradio-container { 
+    border: 2px solid #ff007f !important; 
+    border-radius: 16px !important; 
+    box-shadow: 0 0 35px rgba(255, 0, 127, 0.25), inset 0 0 15px rgba(112, 0, 255, 0.15) !important; 
+    padding: 25px !important; 
+    background: radial-gradient(circle at center, #1a0033 0%, #060010 100%) !important; 
+}
+
+/* Glowing Header Board */
+.logo-header { 
+    text-align: center; 
+    border: 2px dashed #ff007f; 
+    background: rgba(255, 0, 127, 0.03); 
+    padding: 20px; 
+    border-radius: 8px; 
+    margin-bottom: 25px; 
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.15); 
+    animation: pulse-glow 4s infinite alternate; 
+}
+.logo-header h1 { 
+    color: #ff007f !important; 
+    font-size: 2.5rem; 
+    letter-spacing: 4px; 
+    font-weight: 900; 
+    margin: 0; 
+    text-shadow: 0 0 15px #ff007f, 0 0 30px #7000ff; 
+}
+.logo-header p { 
+    color: #9d4edd; 
+    margin-top: 8px; 
+    font-size: 1rem; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    text-shadow: 0 0 5px #9d4edd; 
+}
+
+/* Chatbot Window Customization */
+.chatbot {
+    border: 1px solid #7000ff !important;
+    background: rgba(15, 0, 30, 0.6) !important;
+}
+
+/* Styling Chat Bubbles Natively */
+.message.user { 
+    background-color: #3c006b !important; 
+    color: #ffffff !important; 
+    border: 1px solid #ff007f !important; 
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+}
+.message.bot { 
+    background-color: #16002c !important; 
+    color: #ff77ff !important; 
+    border: 1px solid #7000ff !important; 
+    box-shadow: 0 0 10px rgba(112, 0, 255, 0.2);
+}
+
+/* Buttons Styling */
+.cyber-btn { 
+    background: #ff007f !important; 
+    color: #ffffff !important; 
+    font-weight: bold !important; 
+    border: none !important; 
+    border-radius: 6px !important; 
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.4) !important; 
+    cursor: pointer; 
+    transition: all 0.25s ease !important; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+.cyber-btn:hover { 
+    background: #7000ff !important; 
+    box-shadow: 0 0 25px #7000ff !important; 
+}
+
+.secondary-btn { 
+    background-color: rgba(112, 0, 255, 0.1) !important; 
+    color: #ff77ff !important; 
+    border: 1px solid #7000ff !important; 
+    border-radius: 6px !important; 
+    box-shadow: 0 0 10px rgba(112, 0, 255, 0.2) !important; 
+    text-transform: uppercase; 
+    transition: all 0.25s ease !important;
+}
+.secondary-btn:hover { 
+    background: rgba(255, 0, 127, 0.15) !important; 
+    border-color: #ff007f !important;
+    box-shadow: 0 0 20px #ff007f !important; 
+    color: #fff !important;
+}
+
+footer { display: none !important; }
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.1); border-color: #ff007f; }
+    100% { box-shadow: 0 0 30px rgba(112, 0, 255, 0.4); border-color: #7000ff; }
+}
+"""
     
 chatbot= gr.ChatInterface(response,title="🕵️‍♂️ The Sherlock of Bugs",description="Your personal debugging partner from a crime scene to clean code.")
 chatbot.launch()

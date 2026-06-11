@@ -163,26 +163,33 @@ body, .gradio-container {
     background: radial-gradient(circle at center, #1a0033 0%, #060010 100%) !important; 
 }
 
-/* Glowing Header Board */
+
+
+/* Glowing Header Board -- Used AI for this part to make the image expanded */
 .logo-header {     
     text-align: center;     
     border: 2px dashed #ff007f;     
     background: rgba(255, 0, 127, 0.03);     
-    padding: 10px; /* Reduced padding so the image fits snugly */
+    padding: 0px !important; /* Forces padding to 0 so the image touches the border */
     border-radius: 8px;     
     margin-bottom: 25px;     
     box-shadow: 0 0 20px rgba(255, 0, 127, 0.15);     
     animation: pulse-glow 4s infinite alternate; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden; /* Keeps the image corners tucked within the border-radius */
 }
 
-/* Ensures the image doesn't blow past its bounds and keeps its clean corners */
+/* Force Gradio's internal layout divs to expand fully */
+.logo-header > div, .logo-header .image-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Forces the banner image to stretch horizontally across the box */
 .logo-header img {
-    max-height: 250px; /* Adjust this height if you want it larger or smaller on screen */
-    border-radius: 6px;
-    object-fit: contain;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important; /* Scales smoothly without losing proportions */
+    display: block;
 }
 
 /* Chatbot Window Customization */
@@ -247,10 +254,9 @@ footer { display: none !important; }
 }
 """
 
-with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo:
-# 1. Header
+with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo::
+    # 1. Header
     with gr.Group(elem_classes=["logo-header"]):
-        # Replace the old gr.HTML lines with this:
         gr.Image(
             value="TheSherLockOfBugs.jpeg", 
             show_label=False, 

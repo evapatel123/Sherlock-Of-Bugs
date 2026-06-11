@@ -254,7 +254,7 @@ footer { display: none !important; }
 }
 """
 
-with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo::
+with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo:
     # 1. Header
     with gr.Group(elem_classes=["logo-header"]):
         gr.Image(

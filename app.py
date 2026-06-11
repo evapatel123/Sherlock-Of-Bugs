@@ -293,7 +293,6 @@ with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo:
     btn_key.click(fn=load_error_3, outputs=chatbot_window.textbox)
     btn_zero.click(fn=load_error_4, outputs=chatbot_window.textbox)
     clue_btn.click(fn=ask_for_hint, outputs=chatbot_window.textbox)
-    clear_btn.click(fn=lambda: (None, 10), outputs=[chatbot_window.chatbot, progress])
     
 # Launch the custom chatbot app directly 
 demo.launch()

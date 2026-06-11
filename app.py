@@ -288,11 +288,15 @@ with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo:
     def ask_for_hint(): 
         return "I am stuck on this error. Can you give me another clue or hint on what part of my structure to look at?"
 
+    # Attach event listeners to your buttons...
     btn_index.click(fn=load_error_1, outputs=chatbot_window.textbox)
     btn_type.click(fn=load_error_2, outputs=chatbot_window.textbox)
     btn_key.click(fn=load_error_3, outputs=chatbot_window.textbox)
     btn_zero.click(fn=load_error_4, outputs=chatbot_window.textbox)
     clue_btn.click(fn=ask_for_hint, outputs=chatbot_window.textbox)
     
+    # --- ADD THIS LINE TO FIX THE RESET BUTTON ---
+    clear_btn.click(fn=lambda: ([], ""), outputs=[chatbot_window.chatbot, chatbot_window.textbox])
+
 # Launch the custom chatbot app directly 
 demo.launch()

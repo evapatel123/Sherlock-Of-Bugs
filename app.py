@@ -6,10 +6,7 @@ import numpy as np
 encoder_model = SentenceTransformer("all-MiniLM-L6-v2")
 client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct")
 
-
-# Hey guys! So i made this knowledge base and what this does is that it talks about the specific type of error that the chatbot might run into, and the explaination of what 
-# the error message means, so that it could guide the user. 
-
+# Knowledge Base -- all thypes of errors and their description.
 knowledge_base = [
     {
         "error_type": "IndexError: list index out of range",
@@ -100,41 +97,36 @@ knowledge_base = [
         "context": "The program runs but produces incorrect results because a variable contains a different type than expected."
     }
 ]
+
 kb_contexts = []
 kb_embeddings = []
+
+# Encoded context for the code error in the knowledge base
 
 for item in knowledge_base:
     context_text = item["context"]
     kb_contexts.append(context_text)
-    
-
     embedding = encoder_model.encode(context_text)
     kb_embeddings.append(embedding)
 
 kb_embeddings = np.array(kb_embeddings)
 
+#Used to find cosine similarity and used AI to look at what the np.argmax and np.linalg.norm() and the general logic behind implementing it in the chat.
+
 def get_relevant_context(user_message):
-    #Finds the most relevant error context from the knowledge base using cosine similarity.
     user_embedding = encoder_model.encode(user_message)
-    
-    # Calculate cosine similarities
-    # I searched up on Google how to use the linalg.norm() function and the .argmax() function from numpy, becuase it was giving me an error initially.
-    #The whole formula calculates the angle between them. If the angle is very small, it means the two sentences have a very similar meaning.
-    #It gives back a score between 0 (totally different) and 1 (exactly the same).
     
     similarities = np.dot(kb_embeddings, user_embedding) / (
         np.linalg.norm(kb_embeddings, axis=1) * np.linalg.norm(user_embedding)
     )
-
-    # This part find the best index at which the similarity is the most, aka finds the highest number in the similarities vector.
     
     best_idx = np.argmax(similarities)
 
     if similarities[best_idx] > 0.3:
         return kb_contexts[best_idx]
+    return "No specific database match found. Use general debugging wisdom to prompt the user."
 
-def response(message,history):
-    
+def response(message, history):
     retrieved_context = get_relevant_context(message)
 
     system_prompt = (
@@ -146,15 +138,16 @@ def response(message,history):
         "4. If they are correct, praise them and summarize the clean code. If they are struggling or incorrect, guide them closer or finally reveal the exact, elegant solution.\n\n"
         f"RELEVANT BACKGROUND CONTEXT FOR THIS CONVERSATION:\n{retrieved_context}"
     )
-    messages=[{"role":"system","content": system_prompt}]
-
-    messages.extend(history)
+    
+    messages = [{"role": "system", "content": system_prompt}]
+    
+    for turn in history:
+        messages.append({"role": turn.get("role", "user"), "content": turn.get("content", "")})
+        
     messages.append({"role": "user", "content": message})
 
-    response = client.chat_completion(messages,max_tokens=1000)
-    
-    return response.choices[0].message.content.strip() 
-
+    res = client.chat_completion(messages, max_tokens=1000)
+    return res.choices[0].message.content.strip()
 
 custom_css = """
 body, .gradio-container { 
@@ -259,6 +252,48 @@ footer { display: none !important; }
     100% { box-shadow: 0 0 30px rgba(112, 0, 255, 0.4); border-color: #7000ff; }
 }
 """
+
+with gr.Blocks(css=custom_css, theme="hmb/vaporwave") as demo:
+    # 1. Header
+    with gr.Group(elem_classes=["logo-header"]):
+        gr.HTML("<h1>🕵️‍♂️ THE SHERLOCK OF BUGS</h1>")
+        gr.HTML("<p>Your personal debugging partner from a crime scene to clean code.</p>")
+
+    # 2. Main Chat Interface
+    chatbot_window = gr.ChatInterface(fn=response)
+
+    # 4. Quick Action Controls - Giving hint button and resetting the chatbot board 
+    with gr.Row():
+        clue_btn = gr.Button("🔍 Give Me Another Hint", elem_classes=["cyber-btn"])
+        clear_btn = gr.Button("📁 Reset Investigation Board", elem_classes=["secondary-btn"])
+
+    # 5. Sample Error Testing PaRT of the code 
+    gr.HTML("<h3 style='color: #ff77ff; margin-top: 20px; text-shadow: 0 0 5px #ff007f;'>🧪 Select a Sample Case File to Test:</h3>")
+    with gr.Row():
+        btn_index = gr.Button("IndexError Example", elem_classes=["secondary-btn"])
+        btn_type = gr.Button("TypeError Example", elem_classes=["secondary-btn"])
+        btn_key = gr.Button("KeyError Example", elem_classes=["secondary-btn"])
+        btn_zero = gr.Button("ZeroDivision Example", elem_classes=["secondary-btn"])
+
+    # Used AI for this part to know how to make buttons using gradio, the lambda function is something i replaced to make it more organized. 
+
+    def load_error_1(): 
+        return "my_list = [1, 2, 3]\nprint(my_list[5])\nIndexError: list index out of range"
+    def load_error_2(): 
+        return "for i in 10:\nprint(i)\nTypeError: 'int' object is not iterable"
+    def load_error_3(): 
+        return "user_data = {'name': 'Alice'}\nprint(user_data['age'])\nKeyError: 'age'"
+    def load_error_4(): 
+        return "result = 10 / 0\nZeroDivisionError: division by zero"
+    def ask_for_hint(): 
+        return "I am stuck on this error. Can you give me another clue or hint on what part of my structure to look at?"
+
+    btn_index.click(fn=load_error_1, outputs=chatbot_window.textbox)
+    btn_type.click(fn=load_error_2, outputs=chatbot_window.textbox)
+    btn_key.click(fn=load_error_3, outputs=chatbot_window.textbox)
+    btn_zero.click(fn=load_error_4, outputs=chatbot_window.textbox)
+    clue_btn.click(fn=ask_for_hint, outputs=chatbot_window.textbox)
+    clear_btn.click(fn=lambda: (None, 10), outputs=[chatbot_window.chatbot, progress])
     
-chatbot= gr.ChatInterface(response,title="🕵️‍♂️ The Sherlock of Bugs",description="Your personal debugging partner from a crime scene to clean code.")
-chatbot.launch()
+# Launch the custom chatbot app directly 
+demo.launch()

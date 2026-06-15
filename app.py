@@ -2,9 +2,12 @@ from huggingface_hub import InferenceClient
 from sentence_transformers import SentenceTransformer
 import gradio as gr
 import numpy as np 
+import os 
+
+hf_token = os.getenv("HF_TOKEN")
 
 encoder_model = SentenceTransformer("all-MiniLM-L6-v2")
-client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct")
+client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=hf_token)
 
 # Knowledge Base -- all thypes of errors and their description.
 knowledge_base = [

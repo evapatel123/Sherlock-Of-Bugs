@@ -4,7 +4,7 @@ AI-powered bug detection and debugging assistant that analyzes code, identifies 
 
 ## Live Demo
 
-https://huggingface.co/spaces/eva1267890/ChatBot2026
+[https://huggingface.co/spaces/eva1267890/ChatBot2026](https://huggingface.co/spaces/c3team/sherlock-ob)
 
 ##  Features
 

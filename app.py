@@ -4,6 +4,7 @@ import gradio as gr
 import numpy as np 
 import os 
 
+DEMO_MODE = True
 hf_token = os.getenv("HF_TOKEN")
 
 encoder_model = SentenceTransformer("all-MiniLM-L6-v2")
